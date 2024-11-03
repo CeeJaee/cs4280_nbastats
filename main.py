@@ -1,7 +1,7 @@
 import pymongo
 from pymongo import MongoClient
 
-client = pymongo.MongoClient("mongodb+srv://carljudeduran:THXWings0731-@cs4280nba.vubh3.mongodb.net/")
+client = pymongo.MongoClient("mongodb+srv://carljudeduran:across381surfGROUND@cs4280nba.vubh3.mongodb.net/")
 
 db = client.nbastats
 
