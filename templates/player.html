@@ -19,5 +19,34 @@
     {% else %}
         <p>Player data not found.</p>
     {% endif %}
+    {% if games %}
+        <h2>Games</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Opponent</th>
+                    <th>Points</th>
+                    <th>Rebounds</th>
+                    <th>Assists</th>
+                    <!-- Add other game stats headers as needed -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for game in games %}
+                    <tr>
+                        <td>{{ game.get("Date") }}</td>
+                        <td>{{ game.get("Opp") }}</td>
+                        <td>{{ game.get("PTS") }}</td>
+                        <td>{{ game.get("TRB") }}</td>
+                        <td>{{ game.get("AST") }}</td>
+                        <!-- Display other game stats here -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No game data available for this player.</p>
+    {% endif %}
 </body>
 </html>

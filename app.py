@@ -1,27 +1,22 @@
-from flask import Flask, render_template
+import pymongo
 from pymongo import MongoClient
 
-app = Flask(__name__)
+# Set up the MongoDB client and access the database and collection
+client = pymongo.MongoClient("mongodb+srv://carljudeduran:across381surfGROUND@cs4280nba.vubh3.mongodb.net/")
 
-# Connect to MongoDB
-client = MongoClient('mongodb://localhost:27017/')
-db = client['your_database_name']
-collection = db['your_collection_name']
+db = client.nbastats
 
-@app.route('/')
-def index():
-    # Query to get Stephen Curry's information
-    document = collection.find_one({"_id": "GSW_2022-2023"})
-    
-    curry_info = None
-    if document and "players" in document:
-        for player in document["players"][0]:  # Access the first list inside 'players'
-            if player["Player"] == "Stephen Curry":
-                curry_info = player
-                break
-    
-    # Pass the data to the HTML template
-    return render_template('index.html', player=curry_info)
+collectionTeams = db.teams
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# Query to retrieve Stephen Curry's information
+document = collectionTeams.find_one(
+    {"_id": "GSW_2022-2023"},
+    {"players": {"$elemMatch": {"Player": "Stephen Curry"}}}
+)
+
+# Print the result
+if document and "players" in document:
+    stephen_curry = document["players"][0]  # Extract the first matching player
+    print(stephen_curry)
+else:
+    print("Stephen Curry not found.")
