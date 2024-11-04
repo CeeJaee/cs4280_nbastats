@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ player["Player"] }}'s Stats</title>
+</head>
+<body>
+    <h1>{{ player["Player"] }}'s Stats</h1>
+    
+    {% if player %}
+        <p><strong>Name:</strong> {{ player["Player"] }}</p>
+        <p><strong>Age:</strong> {{ player["Age"] }}</p>
+        <p><strong>Games Played:</strong> {{ player["G"] }}</p>
+        <p><strong>Points per Game:</strong> {{ player["PTS"] }}</p>
+        <p><strong>Assists per Game:</strong> {{ player["AST"] }}</p>
+        <p><strong>Rebounds per Game:</strong> {{ player["TRB"] }}</p>
+        <!-- Add more fields as needed -->
+    {% else %}
+        <p>Player data not found.</p>
+    {% endif %}
+</body>
+</html>
