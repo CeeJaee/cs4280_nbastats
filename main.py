@@ -30,7 +30,13 @@ def player_stats(player_name):
     player_name = player_name.replace('-', ' ').title()
 
     # Query the document with the specified team and season
-    document = collectionTeams.find_one({"_id": "GSW_2022-2023"})
+    document = collectionTeams.find_one({
+        "players": {
+            "$elemMatch": {
+                "Player": player_name
+            }
+        }
+    })
     
     player_info = None
     # Verify that the document and 'players' list exist
