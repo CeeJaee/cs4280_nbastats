@@ -11,5 +11,16 @@
         <input type="text" id="player_name" name="player_name" required>
         <button type="submit">Search</button>
     </form>
+
+    <h1>Select a Team</h1>
+    <ul>
+        {% for team in teams %}
+            <li>
+                <a href="{{ url_for('team_games', team_id=team['team_id'], season='2022-2023') }}">
+                    {{ team['team_id'] }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
