@@ -12,15 +12,29 @@
         <button type="submit">Search</button>
     </form>
 
-    <h1>Select a Team</h1>
-    <ul>
-        {% for team in teams %}
-            <li>
-                <a href="{{ url_for('team_games', team_id=team['team_id'], season='2022-2023') }}">
-                    {{ team['team_id'] }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+    <h1>Select a Team by Season</h1>
+
+    <!-- Season Dropdown Form -->
+    <form method="POST" action="{{ url_for('index') }}">
+        <label for="season-select">Choose a season:</label>
+        <select name="season" id="season-select" onchange="this.form.submit()">
+            {% for season in seasons %}
+                <option value="{{ season }}" {% if season == selected_season %}selected{% endif %}>{{ season }}</option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <!-- List of Teams for the Selected Season -->
+    <div id="team-list">
+        <ul>
+            {% for team in teams %}
+                <li>
+                    <a href="{{ url_for('team_games', team_id=team['team_id'], season=selected_season) }}">
+                        {{ team['team_id'] }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>
