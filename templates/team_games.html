@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Team Games</title>
+</head>
+<body>
+    <h1>Games for {{ team_id }} - {{ season }}</h1>
+
+    {% if team_games %}
+        <table border="1">
+            <tr>
+                <th>Date</th>
+                <th>Opponent</th>
+                <th>Score</th>
+                <th>Location</th>
+                <!-- Add more headers based on your game data structure -->
+            </tr>
+            {% for game in team_games %}
+                <tr>
+                    <td>{{ game['Date'] }}</td>
+                    <td>{{ game['Opp'] }}</td>
+                    <td>{{ game['Tm'] }}</td>
+                    <td>{{ game['W/L'] }}</td>
+                    <!-- Add more columns based on your game data structure -->
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No game data available for this team and season.</p>
+    {% endif %}
+</body>
+</html>
