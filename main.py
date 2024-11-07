@@ -14,10 +14,16 @@ collectionTeams = db.teams
 collectionGames = db.games
 
 # Main route to render the index page
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    teams = collectionGames.find({}, {"_id": 1, "team_id": 1})
-    return render_template('index.html', teams=teams)
+     # Get distinct seasons for the dropdown
+    seasons = collectionGames.distinct("season")
+    # Set a default season or get the selected season from form data
+    selected_season = request.form.get('season') if request.method == 'POST' else "2022-2023"
+
+    # Query teams for the selected season
+    teams = collectionGames.find({"season": selected_season}, {"team_id": 1, "team_name": 1})
+    return render_template('index.html', teams=teams, seasons=seasons, selected_season=selected_season)
 
 
 # Search route to process the player search and redirect
