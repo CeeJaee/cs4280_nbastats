@@ -4,24 +4,31 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
-client = pymongo.MongoClient("mongodb+srv://carljudeduran:across381surfGROUND@cs4280nba.vubh3.mongodb.net/")
+client = pymongo.MongoClient(
+    "mongodb+srv://carljudeduran:across381surfGROUND@cs4280nba.vubh3.mongodb.net/"
+)
 
 db = client.nbastats
 
 collectionTeams = db.teams
+collectionGames = db.games
 
 # Main route to render the index page
 @app.route('/')
 def index():
-    return render_template('index.html')
+    teams = collectionGames.find({}, {"_id": 1, "team_id": 1})
+    return render_template('index.html', teams=teams)
+
 
 # Search route to process the player search and redirect
 @app.route('/search', methods=['POST'])
 def search():
-    player_name = request.form.get('player_name')  # Retrieve the player name from the form
+    player_name = request.form.get(
+        'player_name')  # Retrieve the player name from the form
     # Convert spaces to hyphens for the URL, if necessary
     player_name_url = player_name.replace(' ', '-')
     return redirect(url_for('player_stats', player_name=player_name_url))
+
 
 # player stats page
 @app.route('/player/<player_name>')
@@ -30,14 +37,12 @@ def player_stats(player_name):
     player_name = player_name.replace('-', ' ').title()
 
     # Query the document with the specified team and season
-    document = collectionTeams.find_one({
-        "players": {
-            "$elemMatch": {
-                "Player": player_name
-            }
-        }
-    })
-    
+    document = collectionTeams.find_one({"players": {
+                                           "$elemMatch": {
+                                               "Player": player_name
+                                           }
+                                       }})
+
     player_info = None
     # Verify that the document and 'players' list exist
     if document and "players" in document:
@@ -45,12 +50,21 @@ def player_stats(player_name):
         for player in document["players"]:
             if player["Player"].lower() == player_name.lower():
                 player_info = player
-                 # Retrieve games if they exist
+                # Retrieve games if they exist
                 games = player.get("games", [])
                 break
-    
+
     # Pass player info to HTML template for display
     return render_template('player.html', player=player_info, games=games)
+
+@app.route('/team/<team_id>/<season>')
+def team_games(team_id, season):
+    # Query the `games` collection for the specified team and season
+    document = collectionGames.find_one({"team_id": team_id, "season": season})
+
+    team_games = document["team_games"] if document else []
+    return render_template('team_games.html', team_id=team_id, season=season, team_games=team_games)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
@@ -76,7 +90,6 @@ if curry_info:
 else:
     print("Stephen Curry not found.")
 """
-
 """
 # Save the coach's name as a variable
 coach_name = document["Coach"] if document and "Coach" in document else None
