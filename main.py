@@ -4,9 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
-client = pymongo.MongoClient(
-    "mongodb+srv://carljudeduran:across381surfGROUND@cs4280nba.vubh3.mongodb.net/"
-)
+client = pymongo.MongoClient("mongodb+srv://carljudeduran:across381surfGROUND@cs4280nba.vubh3.mongodb.net/")
 
 db = client.nbastats
 
@@ -26,11 +24,10 @@ def index():
     return render_template('index.html', teams=teams, seasons=seasons, selected_season=selected_season)
 
 
-# Search route to process the player search and redirect
+# Search route to process the player search and redirect to player_stats url
 @app.route('/search', methods=['POST'])
 def search():
-    player_name = request.form.get(
-        'player_name')  # Retrieve the player name from the form
+    player_name = request.form.get('player_name')  # Retrieve the player name from the form
     season = request.form.get('season')
     # Convert spaces to hyphens for the URL, if necessary
     player_name_url = player_name.replace(' ', '-')
@@ -40,6 +37,8 @@ def search():
 # player stats page
 @app.route('/player/<player_name>')
 def player_stats(player_name):
+    search_date = request.args.get('date')  # Expected format: "YYYY-MM-DD"
+
     # Retrieve season from query parameters
     season = request.args.get('season')
 
@@ -63,10 +62,14 @@ def player_stats(player_name):
                 # Retrieve games if they exist
                 games = player.get("games", [])
                 break
+    # Filter games by the specified date, if provided
+    if search_date:
+        games = [game for game in games if game.get("Date") == search_date]
 
     # Pass player info to HTML template for display
     return render_template('player.html', player=player_info, games=games, season=season)
 
+# team stats page
 @app.route('/team/<team_id>/<season>', methods=['GET', 'POST'])
 def team_games(team_id, season):    
     # Get the optional date filter from the request arguments
@@ -85,52 +88,10 @@ def team_games(team_id, season):
     # If a date is provided, filter the games by that date
     if date:
         team_games = [game for game in team_games if game.get("Date") == date]
-    
-    #points_per_game = team_document.get("points_per_game") if team_document else None
 
     # Render the template with both sets of data
     return render_template('team_games.html', team_id=team_id, season=season, team_games=team_games, team_document=team_document, games_document=games_document, search_date=date)
-"""def team_games(team_id, season):
-    # Query the `games` collection for the specified team and season
-    document = collectionGames.find_one({"team_id": team_id, "season": season})
-
-    team_games = document["team_games"] if document else []
-    return render_template('team_games.html', team_id=team_id, season=season, team_games=team_games)
-    """
-
-    
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-"""
-# Query to find the document by its `_id`
-document = collectionTeams.find_one({"_id": "GSW_2022-2023"}, {"Coach": 1, "_id": 0})
-
-# Query to find Stephen Curry's information
-document = collectionTeams.find_one({"_id": "GSW_2022-2023"})
-
-# Save Stephen Curry's details as a variable
-curry_info = None
-if document and "players" in document:
-    for player in document["players"][0]:  # Access the first list inside 'players'
-        if player["Player"] == "Stephen Curry":
-            curry_info = player
-            break
-
-# Print Stephen Curry's information if found
-if curry_info:
-    print("Stephen Curry's info:", curry_info)
-else:
-    print("Stephen Curry not found.")
-"""
-"""
-# Save the coach's name as a variable
-coach_name = document["Coach"] if document and "Coach" in document else None
-
-# Print the coach's name (or handle the case if it's not found)
-if coach_name:
-    print("Coach:", coach_name)
-else:
-    print("Coach not found.")
-"""
+    #app.run(host="0.0.0.0", port=8080)
