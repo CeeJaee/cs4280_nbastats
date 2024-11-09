@@ -63,14 +63,39 @@ def player_stats(player_name):
     # Pass player info to HTML template for display
     return render_template('player.html', player=player_info, games=games)
 
-@app.route('/team/<team_id>/<season>')
-def team_games(team_id, season):
+@app.route('/team/<team_id>/<season>', methods=['GET', 'POST'])
+def team_games(team_id, season):    
+    # Get the optional date filter from the request arguments
+    date = request.args.get('date')
+
+
+    # Construct the document ID
+    document_id = f"{team_id}_{season}"
+
+    # Query the games collection for the team_games array
+    games_document = collectionGames.find_one({"_id": document_id}, {"team_games": 1})
+    team_games = games_document.get("team_games", []) if games_document else []
+
+    # Query the teams collection for additional team data
+    team_document = collectionTeams.find_one({"_id": document_id}, {})
+
+    # If a date is provided, filter the games by that date
+    if date:
+        team_games = [game for game in team_games if game.get("Date") == date]
+    
+    #points_per_game = team_document.get("points_per_game") if team_document else None
+
+    # Render the template with both sets of data
+    return render_template('team_games.html', team_id=team_id, season=season, team_games=team_games, team_document=team_document, games_document=games_document, search_date=date)
+"""def team_games(team_id, season):
     # Query the `games` collection for the specified team and season
     document = collectionGames.find_one({"team_id": team_id, "season": season})
 
     team_games = document["team_games"] if document else []
     return render_template('team_games.html', team_id=team_id, season=season, team_games=team_games)
+    """
 
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
