@@ -2,32 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Team Games</title>
+    <title>{{ team_document.name }} - {{ season }} Season Games</title>
 </head>
 <body>
-    <h1>Games for {{ team_id }} - {{ season }}</h1>
+    <h1>{{ team_document.name }} - {{ season }} Season Games</h1>
 
-    {% if team_games %}
+    <!-- Display Points per Game -->
+    <div>
+        <h2>Team Stats</h2>
+        <p><strong>Coach:</strong> {{ team_document.Coach }}</p>
+        <p><strong>Points per Game:</strong> {{ team_document.points_per_game }}</p>
+    </div>
+
+    <!-- Date Search Form -->
+    <form action="{{ url_for('team_games', team_id=team_id, season=season) }}" method="get">
+        <label for="date">Search by Date:</label>
+        <input type="text" name="date" id="date" value="{{ search_date or '' }}" placeholder="Enter date (YYYY-MM-DD)">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Display Team Games -->
+    <div>
+        <h2>Game Stats</h2>
+        {% if team_games %}
         <table border="1">
-            <tr>
-                <th>Date</th>
-                <th>Opponent</th>
-                <th>Score</th>
-                <th>Location</th>
-                <!-- Add more headers based on your game data structure -->
-            </tr>
-            {% for game in team_games %}
+            <thead>
                 <tr>
+                    <!-- Adjust headers as per your game document structure -->
+                    <th>Game</th>
+                    <th>Date</th>
+                    <th>Opponent</th>
+                    <th>Score</th>
+                    <th>Opp Score</th>
+                    <th>Outcome</th>
+                    <th>Assists</th>
+                    <th>Steals</th>
+                    <th>Blocks</th>
+                    <th>Total Rebounds</th>
+                    <th>Turnovers</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for game in team_games %}
+                <tr>
+                    <td>{{ game['G'] }}</td>
                     <td>{{ game['Date'] }}</td>
                     <td>{{ game['Opp'] }}</td>
                     <td>{{ game['Tm'] }}</td>
+                    <td>{{ game['Opp__1'] }}</td>
                     <td>{{ game['W/L'] }}</td>
-                    <!-- Add more columns based on your game data structure -->
+                    <td>{{ game['AST'] }}</td>
+                    <td>{{ game['STL'] }}</td>
+                    <td>{{ game['BLK'] }}</td>
+                    <td>{{ game['TRB'] }}</td>
+                    <td>{{ game['TOV'] }}</td>
                 </tr>
-            {% endfor %}
+                {% endfor %}
+            </tbody>
         </table>
     {% else %}
-        <p>No game data available for this team and season.</p>
+    <p>No game data available for this team and season.</p>
     {% endif %}
+    </div>
 </body>
 </html>
