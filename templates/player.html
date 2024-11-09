@@ -19,6 +19,15 @@
     {% else %}
         <p>Player data not found.</p>
     {% endif %}
+
+    <!-- Date Search Form -->
+    <form action="{{ url_for('player_stats', player_name=player['Player']) }}" method="get">
+        <input type="hidden" name="season" value="{{ season }}">
+        <label for="date">Search by Date:</label>
+        <input type="text" name="date" id="date" placeholder="YYYY-MM-DD" value="{{ search_date or '' }}">
+        <button type="submit">Search</button>
+    </form>
+
     {% if games %}
         <h2>Games</h2>
         <table border="1">
