@@ -31,19 +31,23 @@ def index():
 def search():
     player_name = request.form.get(
         'player_name')  # Retrieve the player name from the form
+    season = request.form.get('season')
     # Convert spaces to hyphens for the URL, if necessary
     player_name_url = player_name.replace(' ', '-')
-    return redirect(url_for('player_stats', player_name=player_name_url))
+    return redirect(url_for('player_stats', player_name=player_name_url, season=season))
 
 
 # player stats page
 @app.route('/player/<player_name>')
 def player_stats(player_name):
+    # Retrieve season from query parameters
+    season = request.args.get('season')
+
     # Standardize player name format (replace '-' with ' ' and capitalize words)
     player_name = player_name.replace('-', ' ').title()
 
     # Query the document with the specified team and season
-    document = collectionTeams.find_one({"players": {
+    document = collectionTeams.find_one({"season": season, "players": {
                                            "$elemMatch": {
                                                "Player": player_name
                                            }
@@ -61,13 +65,12 @@ def player_stats(player_name):
                 break
 
     # Pass player info to HTML template for display
-    return render_template('player.html', player=player_info, games=games)
+    return render_template('player.html', player=player_info, games=games, season=season)
 
 @app.route('/team/<team_id>/<season>', methods=['GET', 'POST'])
 def team_games(team_id, season):    
     # Get the optional date filter from the request arguments
     date = request.args.get('date')
-
 
     # Construct the document ID
     document_id = f"{team_id}_{season}"
