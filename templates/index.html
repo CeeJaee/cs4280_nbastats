@@ -3,9 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <title>NBA Player Search</title>
+    <style>
+        /* Style the team list container */
+        #team-list ul {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Three columns */
+            gap: 10px; /* Space between boxes */
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #team-list li {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        #team-list a li {
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #team-list li:hover {
+            background-color: #e0e0e0;
+        }
+        
+        /* Specific team colors */
+        /* Atlantic Division */
+        #team-list li.BOS, #team-list li.BOS a {
+            background-color: #007A33 !important; /* Celtics - Green */
+            color: white;
+        }
+
+        #team-list li.BKN, #team-list li.BKN a {
+            background-color: #000000 !important; /* Nets - Black */
+            color: white;
+        }
+
+        #team-list li.NYK, #team-list li.NYK a {
+            background-color: #006BB6 !important; /* Knicks - Blue */
+            color: orange;
+        }
+
+        #team-list li.PHI, #team-list li.PHI a {
+            background-color: #006BB6 !important; /* 76ers - Blue */
+            color: white;
+        }
+
+        #team-list li.TOR, #team-list li.TOR a {
+            background-color: #CE1141 !important; /* Raptors - Red */
+            color: white;
+        }
+
+        /* Central Division */
+        #team-list li.CHI, #team-list li.CHI a {
+            background-color: #CE1141 !important; /* Bulls - Red */
+            color: black;
+        }
+
+        #team-list li.CLE, #team-list li.CLE a {
+            background-color: #6F263D !important; /* Cavaliers - Wine */
+            color: gold;
+        }
+
+        #team-list li.DET, #team-list li.DET a {
+            background-color: #1D428A !important; /* Pistons - Blue */
+            color: white;
+        }
+
+        #team-list li.IND, #team-list li.IND a {
+            background-color: #002D62 !important; /* Pacers - Navy Blue */
+            color: yellow;
+        }
+
+        #team-list li.MIL, #team-list li.MIL a {
+            background-color: #00471B !important; /* Bucks - Green */
+            color: white;
+        }
+
+        /* Southeast Division */
+        #team-list li.ATL, #team-list li.ATL a {
+            background-color: #E03A3E !important; /* Hawks - Red */
+            color: white;
+        }
+
+        #team-list li.CHA, #team-list li.CHA a {
+            background-color: #1D1160 !important; /* Hornets - Purple */
+            color: teal;
+        }
+
+        #team-list li.MIA, #team-list li.MIA a {
+            background-color: #98002E !important; /* Heat - Red */
+            color: white;
+        }
+
+        #team-list li.ORL, #team-list li.ORL a {
+            background-color: #0077C0 !important; /* Magic - Blue */
+            color: white;
+        }
+
+        #team-list li.WAS, #team-list li.WAS a {
+            background-color: #002B5C !important; /* Wizards - Navy */
+            color: red;
+        }
+
+        /* Northwest Division */
+        #team-list li.DEN, #team-list li.DEN a {
+            background-color: #0E2240 !important; /* Nuggets - Navy */
+            color: gold;
+        }
+
+        #team-list li.MIN, #team-list li.MIN a {
+            background-color: #0C2340 !important; /* Timberwolves - Navy */
+            color: green;
+        }
+
+        #team-list li.OKC, #team-list li.OKC a {
+            background-color: #007AC1 !important; /* Thunder - Blue */
+            color: orange;
+        }
+
+        #team-list li.POR, #team-list li.POR a {
+            background-color: #E03A3E !important; /* Trail Blazers - Red */
+            color: white;
+        }
+
+        #team-list li.UTA, #team-list li.UTA a {
+            background-color: #002B5C !important; /* Jazz - Navy */
+            color: yellow;
+        }
+
+        /* Pacific Division */
+        #team-list li.GSW, #team-list li.GSW a {
+            background-color: #006BB6 !important; /* Warriors - Blue */
+            color: yellow;
+        }
+
+        #team-list li.LAC, #team-list li.LAC a {
+            background-color: #C8102E !important; /* Clippers - Red */
+            color: blue;
+        }
+
+        #team-list li.LAL, #team-list li.LAL a {
+            background-color: #552583 !important; /* Lakers - Purple */
+            color: gold;
+        }
+
+        #team-list li.PHX, #team-list li.PHX a {
+            background-color: #1D1160 !important; /* Suns - Purple */
+            color: orange;
+        }
+
+        #team-list li.SAC, #team-list li.SAC a {
+            background-color: #5A2D81 !important; /* Kings - Purple */
+            color: gray;
+        }
+
+        /* Southwest Division */
+        #team-list li.DAL, #team-list li.DAL a {
+            background-color: #00538C !important; /* Mavericks - Blue */
+            color: white;
+        }
+
+        #team-list li.HOU, #team-list li.HOU a {
+            background-color: #CE1141 !important; /* Rockets - Red */
+            color: black;
+        }
+
+        #team-list li.MEM, #team-list li.MEM a {
+            background-color: #12173F !important; /* Grizzlies - Navy */
+            color: lightblue;
+        }
+
+        #team-list li.NOP, #team-list li.NOP a {
+            background-color: #0C2340 !important; /* Pelicans - Navy */
+            color: gold;
+        }
+
+        #team-list li.SAS, #team-list li.SAS a {
+            background-color: #C4CED4 !important; /* Spurs - Silver */
+            color: black;
+        }
+
+
+    </style>
 </head>
 <body>
-    <h1>NBA Player Search</h1>
+    <div style="background-color: palevioletred; border-radius: 10px; height: 120px;">
+        <br>
+        <h1 style="text-align: center;">NBA Player Search</h1>
+    </div>
+    <br>
     <form action="{{ url_for('search') }}" method="POST">
         <label for="player_name">Enter Player Name:</label>
         <input type="text" id="player_name" name="player_name" required>
@@ -19,8 +209,8 @@
         </select>
         <button type="submit">Search</button>
     </form>
-
-    <h1>Select a Team by Season</h1>
+    <br><br>
+    <h1 style="text-align: center;">Select a Team by Season</h1>
 
     <!-- Season Dropdown Form -->
     <form method="POST" action="{{ url_for('index') }}">
@@ -36,11 +226,11 @@
     <div id="team-list">
         <ul>
             {% for team in teams %}
-                <li>
-                    <a href="{{ url_for('team_games', team_id=team['team_id'], season=selected_season) }}">
+                <a href="{{ url_for('team_games', team_id=team['team_id'], season=selected_season) }}">
+                    <li class="{{ team['team_id'] }}">
                         {{ team['team_id'] }}
-                    </a>
-                </li>
+                    </li>
+                </a>
             {% endfor %}
         </ul>
     </div>
