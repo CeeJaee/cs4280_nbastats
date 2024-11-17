@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ team_document.name }} - {{ season }} Season Games</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='team_style.css') }}">
 </head>
 <body>
     <h1>{{ team_document.name }} - {{ season }} Season Games</h1>
@@ -10,8 +11,33 @@
     <!-- Display Points per Game -->
     <div>
         <h2>Team Stats</h2>
+        <p><strong>Win/Loss:</strong> {{ team_document["win-loss"] }}</p>
         <p><strong>Coach:</strong> {{ team_document.Coach }}</p>
+        {% if team_document.points_per_game %}
         <p><strong>Points per Game:</strong> {{ team_document.points_per_game }}</p>
+        {% endif %}
+        {% if team_document.FG_per_game %}
+        <p><strong>Field goals per Game:</strong> {{ team_document.FG_per_game }}</p>
+        {% endif %}
+        {% if team_document.FGpct_per_game %}
+        <p><strong>Field goal % per Game:</strong> {{ team_document.FGpct_per_game }}</p>
+        {% endif %}
+        {% if team_document.threeP_per_game %}
+        <p><strong>Threes Made per Game:</strong> {{ team_document.threeP_per_game }}</p>
+        {% endif %}
+        {% if team_document.threePpct_per_game %}
+        <p><strong>Threes % per Game:</strong> {{ team_document.threePpct_per_game }}</p>
+        {% endif %}
+        {% if team_document.AST_per_game %}
+        <p><strong>Assists per Game:</strong> {{ team_document.AST_per_game }}</p>
+        {% endif %}
+        {% if team_document.STL_per_game %}
+        <p><strong>Steals per Game:</strong> {{ team_document.STL_per_game }}</p>
+        {% endif %}
+        {% if team_document.BLK_per_game %}
+        <p><strong>Blocks per Game:</strong> {{ team_document.BLK_per_game }}</p>
+        {% endif %}
+        
     </div>
 
     <!-- Date Search Form -->

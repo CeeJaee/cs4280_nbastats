@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ player["Player"] }}'s Stats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='player_style.css') }}">
 </head>
 <body>
     <h1>{{ player["Player"] }}'s Stats {{ season }} Season</h1>
@@ -13,7 +14,13 @@
         <p><strong>Age:</strong> {{ player["Age"] }}</p>
         <p><strong>Games Played:</strong> {{ player["G"] }}</p>
         <p><strong>Points per Game:</strong> {{ player["PTS"] }}</p>
+        <p><strong>Threes Made per Game:</strong> {{ player["3P"] }}</p>
+        <p><strong>Three Point %:</strong> {{ player["3P%"] }}</p>
+        <p><strong>Free Throw %:</strong> {{ player["FT%"] }}</p>
         <p><strong>Assists per Game:</strong> {{ player["AST"] }}</p>
+        <p><strong>Steals per Game:</strong> {{ player["STL"] }}</p>
+        <p><strong>Blocks per Game:</strong> {{ player["BLK"] }}</p>
+        <p><strong>Turnovers per Game:</strong> {{ player["TOV"] }}</p>
         <p><strong>Rebounds per Game:</strong> {{ player["TRB"] }}</p>
         <!-- Add more fields as needed -->
     {% else %}
@@ -35,9 +42,19 @@
                 <tr>
                     <th>Date</th>
                     <th>Opponent</th>
+                    <th>Minutes Played</th>
                     <th>Points</th>
-                    <th>Rebounds</th>
+                    <th>Field Goals</th>
+                    <th>Field Goal %</th>
+                    <th>3-PT</th>
+                    <th>3-PT %</th>
+                    <th>Free Throws</th>
+                    <th>Free Throw %</th>
                     <th>Assists</th>
+                    <th>Steals</th>
+                    <th>Blocks</th>
+                    <th>Rebounds</th>
+                    <th>Turnovers</th>
                     <!-- Add other game stats headers as needed -->
                 </tr>
             </thead>
@@ -46,9 +63,19 @@
                     <tr>
                         <td>{{ game.get("Date") }}</td>
                         <td>{{ game.get("Opp") }}</td>
+                        <td>{{ game.get("MP") }}</td>
                         <td>{{ game.get("PTS") }}</td>
-                        <td>{{ game.get("TRB") }}</td>
+                        <td>{{ game.get("FG") }}</td>
+                        <td>{{ game.get("FG%") }}</td>
+                        <td>{{ game.get("3P") }}</td>
+                        <td>{{ game.get("3P%") }}</td>
+                        <td>{{ game.get("FT%") }}</td>
+                        <td>{{ game.get("FT%") }}</td>
                         <td>{{ game.get("AST") }}</td>
+                        <td>{{ game.get("STL") }}</td>
+                        <td>{{ game.get("BLK") }}</td>
+                        <td>{{ game.get("TRB") }}</td>
+                        <td>{{ game.get("TOV") }}</td>
                         <!-- Display other game stats here -->
                     </tr>
                 {% endfor %}
