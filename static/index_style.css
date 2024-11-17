@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
+/* Global font-family */
+body {
+    font-family: 'Noto Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4eae0; /* Light brown/tan background */
+    color: #2c2c2c; /* Blackish text color */
+}
+
+/* Form Styling */
+form {
+    max-width: 600px; /* Limit the form width */
+    margin: 20px auto; /* Center the form horizontally */
+    padding: 20px;
+    background-color: #ffffff; /* White background for the form */
+    border: 1px solid #d1c4b8; /* Light brown border */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure the input fits within the form */
+input[type="text"], select, button {
+    width: 100%; /* Full width within the form */
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+
+/* Style the input text box */
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #b59d8b; /* Medium tan */
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f6f3; /* Lighter tan */
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus {
+    background-color: #ffffff; /* Highlight on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue glow */
+    outline: none;
+}
+
+/* Style the dropdown select box */
+select {
+    width: 100%; /* Full width */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #b59d8b; /* Medium tan */
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f6f3; /* Light tan background */
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+select:focus {
+    background-color: #ffffff; /* Highlight on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue glow */
+    outline: none;
+}
+
+/* Style the submit button */
+button {
+    background-color: #3a231e; /* Dark brown button */
+    color: #ffffff; /* White text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #2c1a14; /* Darker brown on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue glow */
+}
+
+/* Team list container */
+#team-list ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns */
+    gap: 10px; /* Space between boxes */
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Individual team list item */
+#team-list li {
+    border: 1px solid #d1c4b8; /* Light brown border */
+    padding: 10px;
+    text-align: center;
+    background-color: #ffffff; /* White background */
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+#team-list li:hover {
+    background-color: #f9f6f3; /* Lighter tan on hover */
+}
+        
+        /* Specific team colors */
+        /* Atlantic Division */
+        #team-list li.BOS, #team-list li.BOS a {
+            background-color: #007A33 !important; /* Celtics - Green */
+            color: white;
+        }
+
+        #team-list li.BKN, #team-list li.BKN a {
+            background-color: #000000 !important; /* Nets - Black */
+            color: white;
+        }
+
+        #team-list li.NYK, #team-list li.NYK a {
+            background-color: #006BB6 !important; /* Knicks - Blue */
+            color: orange;
+        }
+
+        #team-list li.PHI, #team-list li.PHI a {
+            background-color: #006BB6 !important; /* 76ers - Blue */
+            color: white;
+        }
+
+        #team-list li.TOR, #team-list li.TOR a {
+            background-color: #CE1141 !important; /* Raptors - Red */
+            color: white;
+        }
+
+        /* Central Division */
+        #team-list li.CHI, #team-list li.CHI a {
+            background-color: #CE1141 !important; /* Bulls - Red */
+            color: black;
+        }
+
+        #team-list li.CLE, #team-list li.CLE a {
+            background-color: #6F263D !important; /* Cavaliers - Wine */
+            color: gold;
+        }
+
+        #team-list li.DET, #team-list li.DET a {
+            background-color: #1D428A !important; /* Pistons - Blue */
+            color: white;
+        }
+
+        #team-list li.IND, #team-list li.IND a {
+            background-color: #002D62 !important; /* Pacers - Navy Blue */
+            color: yellow;
+        }
+
+        #team-list li.MIL, #team-list li.MIL a {
+            background-color: #00471B !important; /* Bucks - Green */
+            color: white;
+        }
+
+        /* Southeast Division */
+        #team-list li.ATL, #team-list li.ATL a {
+            background-color: #E03A3E !important; /* Hawks - Red */
+            color: white;
+        }
+
+        #team-list li.CHA, #team-list li.CHA a {
+            background-color: #1D1160 !important; /* Hornets - Purple */
+            color: teal;
+        }
+
+        #team-list li.MIA, #team-list li.MIA a {
+            background-color: #98002E !important; /* Heat - Red */
+            color: white;
+        }
+
+        #team-list li.ORL, #team-list li.ORL a {
+            background-color: #0077C0 !important; /* Magic - Blue */
+            color: white;
+        }
+
+        #team-list li.WAS, #team-list li.WAS a {
+            background-color: #002B5C !important; /* Wizards - Navy */
+            color: red;
+        }
+
+        /* Northwest Division */
+        #team-list li.DEN, #team-list li.DEN a {
+            background-color: #0E2240 !important; /* Nuggets - Navy */
+            color: gold;
+        }
+
+        #team-list li.MIN, #team-list li.MIN a {
+            background-color: #0C2340 !important; /* Timberwolves - Navy */
+            color: green;
+        }
+
+        #team-list li.OKC, #team-list li.OKC a {
+            background-color: #007AC1 !important; /* Thunder - Blue */
+            color: orange;
+        }
+
+        #team-list li.POR, #team-list li.POR a {
+            background-color: #E03A3E !important; /* Trail Blazers - Red */
+            color: white;
+        }
+
+        #team-list li.UTA, #team-list li.UTA a {
+            background-color: #002B5C !important; /* Jazz - Navy */
+            color: yellow;
+        }
+
+        /* Pacific Division */
+        #team-list li.GSW, #team-list li.GSW a {
+            background-color: #006BB6 !important; /* Warriors - Blue */
+            color: yellow;
+        }
+
+        #team-list li.LAC, #team-list li.LAC a {
+            background-color: #C8102E !important; /* Clippers - Red */
+            color: blue;
+        }
+
+        #team-list li.LAL, #team-list li.LAL a {
+            background-color: #552583 !important; /* Lakers - Purple */
+            color: gold;
+        }
+
+        #team-list li.PHX, #team-list li.PHX a {
+            background-color: #1D1160 !important; /* Suns - Purple */
+            color: orange;
+        }
+
+        #team-list li.SAC, #team-list li.SAC a {
+            background-color: #5A2D81 !important; /* Kings - Purple */
+            color: gray;
+        }
+
+        /* Southwest Division */
+        #team-list li.DAL, #team-list li.DAL a {
+            background-color: #00538C !important; /* Mavericks - Blue */
+            color: white;
+        }
+
+        #team-list li.HOU, #team-list li.HOU a {
+            background-color: #CE1141 !important; /* Rockets - Red */
+            color: black;
+        }
+
+        #team-list li.MEM, #team-list li.MEM a {
+            background-color: #12173F !important; /* Grizzlies - Navy */
+            color: lightblue;
+        }
+
+        #team-list li.NOP, #team-list li.NOP a {
+            background-color: #0C2340 !important; /* Pelicans - Navy */
+            color: gold;
+        }
+
+        #team-list li.SAS, #team-list li.SAS a {
+            background-color: #C4CED4 !important; /* Spurs - Silver */
+            color: black;
+        }
+        #team-list a {
+            text-decoration: none; /* Removes the underline */
+            color: inherit; /* Ensures link text color matches the parent element */
+        }
+
+        /* Ensure this style applies even when links are hovered */
+        #team-list a:hover {
+            text-decoration: none;
+        }
