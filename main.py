@@ -35,7 +35,7 @@ def search():
 
 
 # player stats page
-@app.route('/player/<player_name>')
+@app.route('/player/<player_name>', methods=['GET', 'POST'])
 def player_stats(player_name):
     search_date = request.args.get('date')  # Expected format: "YYYY-MM-DD"
 
