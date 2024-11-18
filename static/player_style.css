@@ -41,6 +41,10 @@ input[type="text"] {
     font-size: 16px;
     background-color: #f9f6f3; /* Lighter tan */
 }
+input[type="text"], select, button {
+    width: 100%; /* Full width within the form */
+    box-sizing: border-box; /* Include padding and border in the width */
+}
 
 /* Button styling */
 button {
