@@ -67,7 +67,7 @@ def player_stats(player_name):
         games = [game for game in games if game.get("Date") == search_date]
 
     # Pass player info to HTML template for display
-    return render_template('player.html', player=player_info, games=games, season=season)
+    return render_template('player.html', player=player_info, games=games, season=season, document=document)
 
 # team stats page
 @app.route('/team/<team_id>/<season>', methods=['GET', 'POST'])
